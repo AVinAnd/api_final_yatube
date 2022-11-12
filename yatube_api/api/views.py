@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, mixins
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
@@ -41,7 +41,8 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (AllowAny,)
 
 
-class FollowViewSet(viewsets.ModelViewSet):
+class FollowViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
+                    viewsets.GenericViewSet):
     serializer_class = FollowSerializer
     permission_classes = (IsAuthenticated,)
     filter_backends = (filters.SearchFilter,)
@@ -50,3 +51,7 @@ class FollowViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Получаем все подписки пользователя, сделавшего запрос"""
         return Follow.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        """При подписке указать пользователя, отправившего запрос"""
+        return serializer.save(user=self.request.user)

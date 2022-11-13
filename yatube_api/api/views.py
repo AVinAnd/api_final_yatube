@@ -50,7 +50,7 @@ class FollowViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
 
     def get_queryset(self):
         """Получаем все подписки пользователя, сделавшего запрос"""
-        return Follow.objects.filter(user=self.request.user)
+        return self.request.user.follower
 
     def perform_create(self, serializer):
         """При подписке указать пользователя, отправившего запрос"""

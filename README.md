@@ -1,43 +1,50 @@
-# api проекта yatube
+# API проекта yatube
 
-В проекте описан api для сервиса yatube. 
+В проекте описан API для сервиса yatube. 
 
 Yatube - площадка для публикации постов, 
 где пользователи могут подписываться на авторов и
 оставлять комментарии.
 
-## Технологии проекта:
+## Технологии и запуск проекта
+
+Проект написан на языке python, с использованием django REST framework. 
+Необходимые для работы проекта зависимости описаны в файле requirements.txt
+### Технологии проекта:
 - Python 3.7
 - Django Rest Framework
 - Simple JWT
 - Djoser
-## Как запустить проект:
 
-Клонировать репозиторий и перейти в него в 
-командной строке:
+Документация проекта доступна по адресу 
+http://127.0.0.1:8000/redoc/
 
+Для запуска проекта:
+- Клонируйте репозиторий
+``` 
+- git clone https://github.com/AVinAnd/api_final_yatube.git 
 ```
-git clone https://github.com/AVinAnd/api_final_yatube.git
-cd kittygram
+- Активируйте виртуальное окружение 
 ```
-Cоздать и активировать виртуальное окружение:
+python -m venv venv
+source venv/scripts/activate
 ```
-python3 -m venv env
-source env/bin/activate
-```
-Установить зависимости из файла requirements.txt
-и выполнить миграции:
-```
-python3 -m pip install --upgrade pip
+- Установите зависимости
+``` 
 pip install -r requirements.txt
-python3 manage.py migrate
 ```
-Запустить проект:
+- Выполните миграции 
 ```
-python3 manage.py runserver
+python manage.py makemigrations
+python manage.py migrate
 ```
-## Примеры запросов
+- Запустите проект
+```
+python manage.py runserver
+```
 
+Проект доступен по адресу http://127.0.0.1:8000/
+## Примеры запросов
 ### GET запросы
 ```
 /api/v1/posts/ - получение публикаций
